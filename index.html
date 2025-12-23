@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyLaundry - Layanan Laundry Modern</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4a6bff;
+            --primary-dark: #3a56d4;
+            --secondary: #ff6b6b;
+            --accent: #4cd964;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --border-radius: 10px;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #fff;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        /* Logo Section */
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--primary);
+            font-size: 2rem;
+        }
+
+        .logo-text {
+            display: inline;
+        }
+
+        /* Desktop Navigation */
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 5px 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 8px 15px 8px 35px;
+            border: 1px solid var(--light-gray);
+            border-radius: 20px;
+            width: 200px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            width: 250px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .cta-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.95rem;
+        }
+
+        .cta-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        .login-button {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 8px 20px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.95rem;
+        }
+
+        .login-button:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .mobile-left-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+
+        .mobile-menu-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+        }
+
+        .mobile-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .mobile-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mobile-search-btn {
+            display: none;
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            display: none;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100%;
+            background-color: white;
+            z-index: 1000;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .mobile-logo-full {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .close-menu {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+        }
+
+        .mobile-nav-links li {
+            margin-bottom: 15px;
+        }
+
+        .mobile-nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 1.1rem;
+            display: block;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 150px 0 100px;
+            background: linear-gradient(135deg, #f5f7ff 0%, #e3e8ff 100%);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+        }
+
+        .hero-text {
+            max-width: 800px;
+        }
+
+        .hero-image {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .highlight {
+            color: var(--primary);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--light);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background-color: #f8f9fa;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .service-body {
+            padding: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .service-features li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .service-features i {
+            color: var(--accent);
+            margin-right: 10px;
+        }
+
+        /* Order Form */
+        .order-section {
+            padding: 100px 0;
+            background-color: white;
+        }
+
+        .order-form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+
+        .form-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .order-form {
+            padding: 40px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.1);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 80px 0;
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 80px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-links h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--light-gray);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .search-input {
+                width: 150px;
+            }
+            
+            .search-input:focus {
+                width: 180px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-nav {
+                display: flex;
+            }
+            
+            .logo-section {
+                display: none;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .hero-content {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 120px 0 80px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                gap: 8px;
+            }
+            
+            .cta-button, .login-button {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+            
+            .mobile-logo {
+                font-size: 1.3rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .mobile-logo {
+                font-size: 1.2rem;
+            }
+            
+            .mobile-left-section {
+                gap: 10px;
+            }
+            
+            .cta-button, .login-button {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (min-width: 993px) {
+            .mobile-nav {
+                display: none;
+            }
+            
+            .logo-text {
+                display: inline !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <!-- Desktop Navigation -->
+            <nav class="navbar">
+                <div class="logo-section">
+                    <a href="#" class="logo">
+                        <i class="fas fa-tshirt"></i>
+                        <span class="logo-text">MyLaundry</span>
+                    </a>
+                </div>
+                
+                <div class="desktop-nav">
+                    <ul class="nav-links">
+                        <li><a href="#home">Beranda</a></li>
+                        <li><a href="#features">Fitur</a></li>
+                        <li><a href="#services">Layanan</a></li>
+                        <li><a href="#order">Pesan</a></li>
+                        <li><a href="#about">Tentang</a></li>
+                    </ul>
+                    
+                    <div class="search-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Cari layanan...">
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <a href="#order" class="cta-button">Pesan Sekarang</a>
+                        <a href="#" class="login-button">Login</a>
+                    </div>
+                </div>
+                
+                <!-- Mobile Navigation -->
+                <div class="mobile-nav">
+                    <div class="mobile-left-section">
+                        <button class="mobile-menu-btn">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        
+                        <a href="#" class="mobile-logo">
+                            <i class="fas fa-tshirt"></i>
+                            <span class="logo-text">MyLaundry</span>
+                        </a>
+                    </div>
+                    
+                    <div class="mobile-actions">
+                        <a href="#" class="login-button" style="padding: 6px 12px; font-size: 0.85rem;">Login</a>
+                        <a href="#order" class="cta-button" style="padding: 6px 12px; font-size: 0.85rem;">Pesan</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <div class="mobile-logo-full">
+                <i class="fas fa-tshirt"></i> MyLaundry
+            </div>
+            <button class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <ul class="mobile-nav-links">
+            <li><a href="#home">Beranda</a></li>
+            <li><a href="#features">Fitur</a></li>
+            <li><a href="#services">Layanan</a></li>
+            <li><a href="#order">Pesan</a></li>
+            <li><a href="#about">Tentang</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Laundry <span class="highlight">Modern</span> dengan Layanan <span class="highlight">Ekspres</span></h1>
+                    <p class="subtitle">MyLaundry memberikan solusi laundry cepat, berkualitas, dan terjangkau dengan pengantaran langsung ke rumah Anda. Pesan sekarang, kami yang menjemput!</p>
+                    <a href="#order" class="cta-button">Pesan Layanan <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1602008365488-2ac2c5432d69?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Laundry Service">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Mengapa Memilih MyLaundry?</h2>
+                <p>Kami menghadirkan layanan laundry yang memudahkan hidup Anda dengan teknologi terbaru</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-motorcycle"></i>
+                    </div>
+                    <h3>Penjemputan Gratis</h3>
+                    <p>Kami akan menjemput laundry Anda langsung dari lokasi yang Anda tentukan tanpa biaya tambahan.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Layanan Cepat 24 Jam</h3>
+                    <p>Pesan kapan saja, proses cepat. Layanan ekspress hanya 24 jam dari penjemputan.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>Kualitas Terjamin</h3>
+                    <p>Deterjen berkualitas, proses pencucian modern, dan hasil setrika yang sempurna.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Hygiene & Safety</h3>
+                    <p>Standar kebersihan dan keamanan tinggi untuk melindungi pakaian Anda dari bakteri.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Layanan Unggulan Kami</h2>
+                <p>Pilih layanan laundry yang sesuai dengan kebutuhan Anda</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-header">
+                        <h3>Cuci Reguler</h3>
+                    </div>
+                    <div class="service-body">
+                        <div class="service-price">Rp 10.000/kg</div>
+                        <p>Cuci, kering, dan setrika standar dengan kualitas terjamin.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Proses 2 hari</li>
+                            <li><i class="fas fa-check"></i> Deterjen premium</li>
+                            <li><i class="fas fa-check"></i> Setrika rapi</li>
+                            <li><i class="fas fa-check"></i> Packing rapi</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-header">
+                        <h3>Cuci Express</h3>
+                    </div>
+                    <div class="service-body">
+                        <div class="service-price">Rp 15.000/kg</div>
+                        <p>Cuci, kering, dan setrika cepat hanya dalam 24 jam.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Proses 1 hari</li>
+                            <li><i class="fas fa-check"></i> Deterjen premium</li>
+                            <li><i class="fas fa-check"></i> Setrika rapi</li>
+                            <li><i class="fas fa-check"></i> Prioritas tinggi</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-header">
+                        <h3>Cuci Kering</h3>
+                    </div>
+                    <div class="service-body">
+                        <div class="service-price">Rp 8.000/kg</div>
+                        <p>Cuci dan kering saja tanpa setrika, untuk pakaian casual.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Proses 2 hari</li>
+                            <li><i class="fas fa-check"></i> Deterjen premium</li>
+                            <li><i class="fas fa-check"></i> Tanpa setrika</li>
+                            <li><i class="fas fa-check"></i> Packing rapi</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-header">
+                        <h3>Setrika Saja</h3>
+                    </div>
+                    <div class="service-body">
+                        <div class="service-price">Rp 5.000/kg</div>
+                        <p>Hanya layanan setrika untuk pakaian yang sudah dicuci.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Proses 1 hari</li>
+                            <li><i class="fas fa-check"></i> Setrika profesional</li>
+                            <li><i class="fas fa-check"></i> Hasil rapi</li>
+                            <li><i class="fas fa-check"></i> Packing rapi</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-header">
+                        <h3>Cuci Selimut</h3>
+                    </div>
+                    <div class="service-body">
+                        <div class="service-price">Rp 25.000/kg</div>
+                        <p>Khusus untuk selimut, bed cover, dan sprei ukuran besar.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Proses 3 hari</li>
+                            <li><i class="fas fa-check"></i> Deterjen khusus</li>
+                            <li><i class="fas fa-check"></i> Mesin besar</li>
+                            <li><i class="fas fa-check"></i> Aroma segar</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-header">
+                        <h3>Cuci Sepatu</h3>
+                    </div>
+                    <div class="service-body">
+                        <div class="service-price">Rp 30.000/pasang</div>
+                        <p>Cuci dan perawatan sepatu dengan teknik khusus.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Proses 3 hari</li>
+                            <li><i class="fas fa-check"></i> Perawatan khusus</li>
+                            <li><i class="fas fa-check"></i> Waterproofing</li>
+                            <li><i class="fas fa-check"></i> Pengharum sepatu</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Form -->
+    <section class="order-section" id="order">
+        <div class="container">
+            <div class="section-title">
+                <h2>Pesan Layanan MyLaundry</h2>
+                <p>Isi formulir di bawah ini untuk memesan layanan laundry kami</p>
+            </div>
+            
+            <div class="order-form-container">
+                <div class="form-header">
+                    <h3>Formulir Pemesanan</h3>
+                </div>
+                
+                <form class="order-form" id="orderForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Nama Lengkap</label>
+                            <input type="text" id="name" class="form-control" placeholder="Masukkan nama lengkap" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Nomor Telepon</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="Masukkan nomor telepon" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" placeholder="Masukkan alamat email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Alamat Penjemputan</label>
+                        <textarea id="address" class="form-control" rows="3" placeholder="Masukkan alamat lengkap untuk penjemputan" required></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="service">Jenis Layanan</label>
+                            <select id="service" class="form-control" required>
+                                <option value="">Pilih layanan</option>
+                                <option value="1">Cuci Reguler - Rp 10.000/kg</option>
+                                <option value="2">Cuci Express - Rp 15.000/kg</option>
+                                <option value="3">Cuci Kering - Rp 8.000/kg</option>
+                                <option value="4">Setrika Saja - Rp 5.000/kg</option>
+                                <option value="5">Cuci Selimut - Rp 25.000/kg</option>
+                                <option value="6">Cuci Sepatu - Rp 30.000/pasang</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="weight">Berat (kg)</label>
+                            <input type="number" id="weight" class="form-control" min="1" max="20" step="0.5" placeholder="Misal: 3.5" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pickupDate">Tanggal Penjemputan</label>
+                            <input type="date" id="pickupDate" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="pickupTime">Waktu Penjemputan</label>
+                            <select id="pickupTime" class="form-control" required>
+                                <option value="">Pilih waktu</option>
+                                <option value="08:00-10:00">08:00 - 10:00</option>
+                                <option value="10:00-12:00">10:00 - 12:00</option>
+                                <option value="12:00-14:00">12:00 - 14:00</option>
+                                <option value="14:00-16:00">14:00 - 16:00</option>
+                                <option value="16:00-18:00">16:00 - 18:00</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notes">Catatan Khusus (opsional)</label>
+                        <textarea id="notes" class="form-control" rows="3" placeholder="Catatan khusus untuk layanan laundry Anda"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="promoCode">Kode Promo (opsional)</label>
+                        <input type="text" id="promoCode" class="form-control" placeholder="Masukkan kode promo jika ada">
+                    </div>
+                    
+                    <div class="form-group" style="text-align: center; margin-top: 30px;">
+                        <button type="submit" class="cta-button" style="padding: 15px 40px; font-size: 1.1rem;">
+                            <i class="fas fa-paper-plane"></i> Pesan Sekarang
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3 id="customerCount">5000+</h3>
+                    <p>Pelanggan Puas</p>
+                </div>
+                
+                <div class="stat-item">
+                    <h3 id="orderCount">25000+</h3>
+                    <p>Pesanan Diproses</p>
+                </div>
+                
+                <div class="stat-item">
+                    <h3 id="cityCount">15+</h3>
+                    <p>Kota Terjangkau</p>
+                </div>
+                
+                <div class="stat-item">
+                    <h3 id="rating">4.8</h3>
+                    <p>Rating Rata-rata</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="about">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <i class="fas fa-tshirt"></i> MyLaundry
+                    </div>
+                    <p>MyLaundry adalah solusi laundry modern dengan teknologi terkini untuk memudahkan hidup Anda. Layanan cepat, berkualitas, dan terjangkau.</p>
+                    <div style="margin-top: 20px;">
+                        <a href="#" style="color: white; margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-facebook"></i></a>
+                        <a href="#" style="color: white; margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" style="color: white; margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-twitter"></i></a>
+                        <a href="#" style="color: white; font-size: 1.2rem;"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Layanan</h4>
+                    <ul>
+                        <li><a href="#">Cuci Reguler</a></li>
+                        <li><a href="#">Cuci Express</a></li>
+                        <li><a href="#">Cuci Kering</a></li>
+                        <li><a href="#">Setrika Saja</a></li>
+                        <li><a href="#">Cuci Selimut</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Perusahaan</h4>
+                    <ul>
+                        <li><a href="#">Tentang Kami</a></li>
+                        <li><a href="#">Karir</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Kebijakan Privasi</a></li>
+                        <li><a href="#">Syarat & Ketentuan</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Kontak</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Jl. Contoh No. 123, Jakarta</li>
+                        <li><i class="fas fa-phone"></i> (021) 1234-5678</li>
+                        <li><i class="fas fa-envelope"></i> info@mylaundry.com</li>
+                        <li><i class="fas fa-clock"></i> Buka 24 Jam</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 MyLaundry. Semua Hak Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('closeMenu');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            mobileMenuOverlay.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            mobileMenuOverlay.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        mobileMenuBtn.addEventListener('click', openMobileMenu);
+        closeMenuBtn.addEventListener('click', closeMobileMenu);
+        mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+        
+        // Login button functionality
+        document.querySelectorAll('.login-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Fitur Login akan segera hadir!');
+            });
+        });
+        
+        // Update stats with animation
+        function animateCounter(element, target, duration) {
+            let start = 0;
+            const increment = target / (duration / 16); // 60fps
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target + (element.id === 'rating' ? '' : '+');
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(start) + (element.id === 'rating' ? '' : '+');
+                }
+            }, 16);
+        }
+        
+        // Animate stats when they come into view
+        const observerOptions = {
+            threshold: 0.5
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(document.getElementById('customerCount'), 5000, 1000);
+                    animateCounter(document.getElementById('orderCount'), 25000, 1000);
+                    animateCounter(document.getElementById('cityCount'), 15, 1000);
+                    animateCounter(document.getElementById('rating'), 4.8, 1000);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        observer.observe(document.querySelector('.stats'));
+        
+        // Form submission
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const address = document.getElementById('address').value;
+            const service = document.getElementById('service').value;
+            const weight = document.getElementById('weight').value;
+            const pickupDate = document.getElementById('pickupDate').value;
+            const pickupTime = document.getElementById('pickupTime').value;
+            const notes = document.getElementById('notes').value;
+            const promoCode = document.getElementById('promoCode').value;
+            
+            // Calculate price
+            const servicePrices = {
+                '1': 10000,
+                '2': 15000,
+                '3': 8000,
+                '4': 5000,
+                '5': 25000,
+                '6': 30000
+            };
+            
+            let totalPrice = servicePrices[service] * weight;
+            
+            // Apply promo code if valid
+            if (promoCode === 'WELCOME10') {
+                totalPrice = totalPrice * 0.9; // 10% discount
+            } else if (promoCode === 'LAUNCH15') {
+                totalPrice = totalPrice - 15000; // Rp 15.000 discount
+                if (totalPrice < 0) totalPrice = 0;
+            }
+            
+            // Format date
+            const formattedDate = new Date(pickupDate).toLocaleDateString('id-ID', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            // Show confirmation
+            const serviceNames = {
+                '1': 'Cuci Reguler',
+                '2': 'Cuci Express',
+                '3': 'Cuci Kering',
+                '4': 'Setrika Saja',
+                '5': 'Cuci Selimut',
+                '6': 'Cuci Sepatu'
+            };
+            
+            alert(`Terima kasih ${name}!\n\nPesanan Anda telah diterima:\n\n` +
+                  `Layanan: ${serviceNames[service]}\n` +
+                  `Berat: ${weight} kg\n` +
+                  `Total Harga: Rp ${totalPrice.toLocaleString('id-ID')}\n` +
+                  `Penjemputan: ${formattedDate}, ${pickupTime}\n\n` +
+                  `Kami akan menghubungi Anda di ${phone} untuk konfirmasi.`);
+            
+            // Reset form
+            document.getElementById('orderForm').reset();
+            
+            // Scroll to top
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Set minimum date for pickup to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('pickupDate').min = today;
+        
+        // Set default date to tomorrow
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        document.getElementById('pickupDate').value = tomorrow.toISOString().split('T')[0];
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        
+        function performSearch(query) {
+            if (query.trim() === '') return;
+            
+            // Convert query to lowercase for case-insensitive search
+            const searchQuery = query.toLowerCase();
+            
+            // Define service keywords
+            const serviceKeywords = {
+                'cuci reguler': 1,
+                'reguler': 1,
+                'cuci express': 2,
+                'express': 2,
+                'cepat': 2,
+                'cuci kering': 3,
+                'kering': 3,
+                'setrika': 4,
+                'setrika saja': 4,
+                'selimut': 5,
+                'bed cover': 5,
+                'sepatu': 6,
+                'cuci sepatu': 6
+            };
+            
+            // Check if query matches any service
+            let foundService = null;
+            for (const [keyword, serviceId] of Object.entries(serviceKeywords)) {
+                if (searchQuery.includes(keyword)) {
+                    foundService = serviceId;
+                    break;
+                }
+            }
+            
+            if (foundService) {
+                // Scroll to services section
+                document.querySelector('#services').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // Clear search input
+                searchInput.value = '';
+            } else {
+                alert(`Layanan "${query}" tidak ditemukan. Coba kata kunci seperti: reguler, express, kering, setrika, selimut, sepatu.`);
+            }
+        }
+        
+        // Desktop search
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch(this.value);
+            }
+        });
+    </script>
+</body>
+</html>
